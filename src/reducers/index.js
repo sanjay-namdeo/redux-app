@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux';
 
-const videos = (oldVideoList, action) => {
+const videos = (oldVideoList = [], action) => {
     if (action.type === 'CREATE-VIDEO-LIST') {
         return [...action.payload.videoList];
     }
     return oldVideoList;
 }
 
-const selectedVideo = (oldVideo, action) => {
+const selectedVideo = (oldVideo = null, action) => {
     if (action.type === 'SELECT-VIDEO') {
         return action.payload.selectedVideo;
     }
