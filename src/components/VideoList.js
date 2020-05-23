@@ -1,16 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {videoList, selectedVideo} from '../actions';
 
 class VideoList extends Component {
-    render() {
-        const videoList = this.props.songs.videos.map((song) => {
-            return (
-                <div className='item' key={song.title}>
-                    <div className='ui left aligned content'>
-                        {song.title}
-                    </div>
+    // Initialize video list
+    componentDidMount() {
+        this.props.videoList();
+    }
 
-                    <div className='ui right floated button primary'>Select</div>
+    render() {
+        const videoList = this.props.videos.videos.map((video) => {
+            return (
+                <div className='item' key={video.title}>
+                    <div className='ui left aligned content'>
+                        {video.title}
+                    </div>
+                    <div className='ui right floated button primary'
+                         onClick={() => this.props.selectedVideo(video)}>Select
+                    </div>
                 </div>
             )
         });
@@ -22,9 +29,13 @@ class VideoList extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
-        songs: state
+        videos: state
     }
 }
 
-export default connect(mapStateToProps)(VideoList);
+export default connect(mapStateToProps, {
+    videoList: videoList,
+    selectedVideo: selectedVideo
+})(VideoList);
